@@ -13,5 +13,7 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
+    // 优惠券
+    $router->resource('coupon_codes', 'CouponCodeController');
 
 });
