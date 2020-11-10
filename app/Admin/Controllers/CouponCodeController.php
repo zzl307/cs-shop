@@ -4,7 +4,6 @@ namespace App\Admin\Controllers;
 
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
 use App\Models\CouponCode;
 use Dcat\Admin\Controllers\AdminController;
 
@@ -22,19 +21,18 @@ class CouponCodeController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('code');
-            $grid->column('description');
+            $grid->column('description')->label();
             $grid->column('usage', '用量')->display(function ($value) {
                 return "{$this->used} / {$this->total}";
             });
-            $grid->column('enabled')->display(function ($value) {
-                return $value ? '启用' : '不启用';
-            });
+            $grid->column('enabled')->bool();
             $grid->column('created_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-
             });
+
+            $grid->disableViewButton();
         });
     }
 
@@ -46,20 +44,42 @@ class CouponCodeController extends AdminController
     protected function form()
     {
         return Form::make(new CouponCode(), function (Form $form) {
-            $form->display('id');
-            $form->text('name');
-            $form->text('code');
-            $form->text('type');
-            $form->text('value');
-            $form->text('total');
-            $form->text('used');
-            $form->text('min_amount');
-            $form->text('not_before');
-            $form->text('not_after');
-            $form->text('enabled');
+            $form->display('id', 'ID');
+            $form->text('name', '名称')->rules('required', [
+                'required' => '名称不能为空'
+            ]);
+            $form->text('code', '优惠码')->rules(function ($form) {
+                if ($id = $form->model()->id) {
+                    return 'nullable|unique:coupon_codes,code,'.$id.',id';
+                } else {
+                    return 'nullable|unique:coupon_codes';
+                }
+            });
+            $form->radio('type', '类型')->options(CouponCode::$typeMap)->rules('required')->default(CouponCode::TYPE_FIXED);
+            $form->text('value', '折扣')->rules(function ($form) {
+                if (request()->input('type') === CouponCode::TYPE_PERCENT) {
+                    // 如果选择了百分比折扣类型，那么折扣范围只能是 1 ~ 99
+                    return 'required|numeric|between:1,99';
+                } else {
+                    // 否则只要大等于 0.01 即可
+                    return 'required|numeric|min:0.01';
+                }
+            });
+            $form->text('total', '总量')->rules('required|numeric|min:0');
+            $form->text('min_amount', '最低金额')->rules('required|numeric|min:0');
+            $form->datetime('not_before', '开始时间');
+            $form->datetime('not_after', '结束时间');
+            $form->radio('enabled', '启用')->options(['1' => '是', '0' => '否'])->default('1');
 
-            $form->display('created_at');
-            $form->display('updated_at');
+            $form->saving(function (Form $form) {
+                if (!$form->code) {
+                    $form->code = CouponCode::findAvailableCode();
+                }
+            });
+
+            $form->footer(function ($footer) {
+                $footer->disableViewCheck();
+            });
         });
     }
 }
