@@ -1,19 +1,18 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'CouponCode' => 'CouponCode',
+        'CouponCode' => '优惠券',
+        'coupon_codes' => '优惠券',
     ],
     'fields' => [
-        'name' => 'name',
-        'code' => 'code',
-        'type' => 'type',
-        'value' => 'value',
-        'total' => 'total',
-        'used' => 'used',
-        'min_amount' => 'min_amount',
-        'not_before' => 'not_before',
-        'not_after' => 'not_after',
-        'enabled' => 'enabled',
+        'name' => '名称',
+        'code' => '优惠码',
+        'description' => '描述',
+        'value' => '折扣',
+        'min_amount' => '最低金额',
+        'total' => '总量',
+        'used' => '已用',
+        'enabled' => '启用状态',
     ],
     'options' => [
     ],
