@@ -64,4 +64,9 @@ class CouponCode extends Model
 
         return $str.'减'.str_replace('.00', '', $this->value);
     }
+
+    public function CouponPublisher()
+    {
+        return $this->belongsToMany(CouponPublishers::class, 'publisher_id');
+    }
 }
