@@ -69,4 +69,9 @@ class CouponCode extends Model
     {
         return $this->belongsToMany(CouponPublishers::class, 'publisher_id');
     }
+
+    public function CouponBusiness()
+    {
+        return $this->belongsTo(CouponBusiness::class, 'business_id');
+    }
 }

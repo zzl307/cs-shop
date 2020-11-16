@@ -15,5 +15,8 @@ Route::group([
     $router->get('/', 'HomeController@index');
     // 优惠券
     $router->resource('coupon_codes', 'CouponCodeController');
-
+    // 商户优惠券
+    $router->resource('coupon_businesses', 'CouponBusinessController');
+    // 全局优惠券
+    $router->resource('coupon_publishers', 'CouponPublisherController');
 });

@@ -42,6 +42,9 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection password
      * @property Grid\Column|Collection avatar
      * @property Grid\Column|Collection remember_token
+     * @property Grid\Column|Collection coupon_business_id
+     * @property Grid\Column|Collection code_id
+     * @property Grid\Column|Collection publisher_id
      * @property Grid\Column|Collection code
      * @property Grid\Column|Collection type
      * @property Grid\Column|Collection value
@@ -51,6 +54,11 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection not_before
      * @property Grid\Column|Collection not_after
      * @property Grid\Column|Collection enabled
+     * @property Grid\Column|Collection online
+     * @property Grid\Column|Collection global
+     * @property Grid\Column|Collection business_id
+     * @property Grid\Column|Collection coupon_publisher_id
+     * @property Grid\Column|Collection scenes_used
      * @property Grid\Column|Collection connection
      * @property Grid\Column|Collection queue
      * @property Grid\Column|Collection payload
@@ -91,6 +99,9 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection password(string $label = null)
      * @method Grid\Column|Collection avatar(string $label = null)
      * @method Grid\Column|Collection remember_token(string $label = null)
+     * @method Grid\Column|Collection coupon_business_id(string $label = null)
+     * @method Grid\Column|Collection code_id(string $label = null)
+     * @method Grid\Column|Collection publisher_id(string $label = null)
      * @method Grid\Column|Collection code(string $label = null)
      * @method Grid\Column|Collection type(string $label = null)
      * @method Grid\Column|Collection value(string $label = null)
@@ -100,6 +111,11 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection not_before(string $label = null)
      * @method Grid\Column|Collection not_after(string $label = null)
      * @method Grid\Column|Collection enabled(string $label = null)
+     * @method Grid\Column|Collection online(string $label = null)
+     * @method Grid\Column|Collection global(string $label = null)
+     * @method Grid\Column|Collection business_id(string $label = null)
+     * @method Grid\Column|Collection coupon_publisher_id(string $label = null)
+     * @method Grid\Column|Collection scenes_used(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
      * @method Grid\Column|Collection queue(string $label = null)
      * @method Grid\Column|Collection payload(string $label = null)
@@ -145,6 +161,9 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection password
      * @property Show\Field|Collection avatar
      * @property Show\Field|Collection remember_token
+     * @property Show\Field|Collection coupon_business_id
+     * @property Show\Field|Collection code_id
+     * @property Show\Field|Collection publisher_id
      * @property Show\Field|Collection code
      * @property Show\Field|Collection type
      * @property Show\Field|Collection value
@@ -154,6 +173,11 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection not_before
      * @property Show\Field|Collection not_after
      * @property Show\Field|Collection enabled
+     * @property Show\Field|Collection online
+     * @property Show\Field|Collection global
+     * @property Show\Field|Collection business_id
+     * @property Show\Field|Collection coupon_publisher_id
+     * @property Show\Field|Collection scenes_used
      * @property Show\Field|Collection connection
      * @property Show\Field|Collection queue
      * @property Show\Field|Collection payload
@@ -194,6 +218,9 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection password(string $label = null)
      * @method Show\Field|Collection avatar(string $label = null)
      * @method Show\Field|Collection remember_token(string $label = null)
+     * @method Show\Field|Collection coupon_business_id(string $label = null)
+     * @method Show\Field|Collection code_id(string $label = null)
+     * @method Show\Field|Collection publisher_id(string $label = null)
      * @method Show\Field|Collection code(string $label = null)
      * @method Show\Field|Collection type(string $label = null)
      * @method Show\Field|Collection value(string $label = null)
@@ -203,6 +230,11 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection not_before(string $label = null)
      * @method Show\Field|Collection not_after(string $label = null)
      * @method Show\Field|Collection enabled(string $label = null)
+     * @method Show\Field|Collection online(string $label = null)
+     * @method Show\Field|Collection global(string $label = null)
+     * @method Show\Field|Collection business_id(string $label = null)
+     * @method Show\Field|Collection coupon_publisher_id(string $label = null)
+     * @method Show\Field|Collection scenes_used(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
      * @method Show\Field|Collection queue(string $label = null)
      * @method Show\Field|Collection payload(string $label = null)
