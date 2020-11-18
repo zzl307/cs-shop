@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Dcat Admin',
+    'name' => '敞视 Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendor/dcat-admin/images/logo.png" width="35"> &nbsp;Dcat Admin',
+    'logo' => '<img src="/vendor/dcat-admin/images/logo.png" width="35"> &nbsp;敞视 Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -264,6 +264,9 @@ return [
         'role_permissions_table' => 'admin_role_permissions',
         'role_menu_table'        => 'admin_role_menu',
         'permission_menu_table'  => 'admin_permission_menu',
+        'settings_table'         => 'admin_settings',
+        'extensions_table'       => 'admin_extensions',
+        'extension_histories_table' => 'admin_extension_histories',
     ],
 
     /*
