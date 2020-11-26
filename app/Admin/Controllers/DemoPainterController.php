@@ -63,24 +63,28 @@ class DemoPainterController extends AdminController
         // $repository = new Painter(['paintings']);
 
         return Form::make($builder, function (Form $form) {
-        $form->display('id', 'ID');
+            $form->display('id', 'ID');
 
-        $form->text('username')->rules('required');
-        $form->textarea('bio')->rules('required');
+            $form->text('username')->rules('required');
+            $form->textarea('bio')->rules('required');
 
-        $form->hasMany('paintings', function (Form\NestedForm $form) {
-        $form->text('title');
-        $form->textarea('body');
-        $form->datetime('completed_at');
-        });
+            $form->hasMany('paintings', function (Form\NestedForm $form) {
+                $form->text('title');
+                $form->textarea('body');
+                $form->datetime('completed_at');
+            });
 
-        $form->display('created_at', 'Created At');
-        $form->display('updated_at', 'Updated At');
+            $form->display('created_at', 'Created At');
+            $form->display('updated_at', 'Updated At');
 
-        // 也可以设置label
-        // $form->hasMany('paintings', '画作', function (Form\NestedForm $form) {
-        //    ...
-        // });
+            $form->saving(function (Form $form) {
+                dump($form->input());
+            });
+
+            // 也可以设置label
+            // $form->hasMany('paintings', '画作', function (Form\NestedForm $form) {
+            //    ...
+            // });
         });
     }
 }

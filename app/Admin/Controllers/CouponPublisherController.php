@@ -2,10 +2,13 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\CouponPublisher;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
+use App\Models\CouponCode;
+use Dcat\Admin\Form\Field;
+use App\Admin\Renderable\CodeTable;
+use App\Admin\Repositories\CouponPublisher;
 use Dcat\Admin\Http\Controllers\AdminController;
 
 class CouponPublisherController extends AdminController
@@ -22,6 +25,14 @@ class CouponPublisherController extends AdminController
             $grid->column('coupon_publisher_id');
             $grid->column('name');
             $grid->column('scenes_used');
+            // $grid->codes()->display(function ($CouponCode) {
+
+            //     $res = array_map(function ($CouponCode) {
+            //             return "<span class='label label-success'>{$CouponCode['name']}</span>";
+            //         }, $CouponCode);
+
+            //     return join(' ', $res);
+            // });
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -58,14 +69,22 @@ class CouponPublisherController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new CouponPublisher(), function (Form $form) {
-            $form->display('id');
-            $form->text('coupon_publisher_id');
-            $form->text('name');
-            $form->text('scenes_used');
+        $builder = CouponPublisher::with('codes');
 
-            $form->display('created_at');
-            $form->display('updated_at');
+        return Form::make($builder, function (Form $form) {
+            $form->display('id', 'ID');
+
+            $form->text('coupon_publisher_id', 'id')->required();
+            $form->text('name', '名称')->required();
+            $form->text('scenes_used', '使用场景');
+
+            $form->multipleSelectTable('codes')
+                ->max(10)
+                ->from(CodeTable::make(['id' => $form->getKey()]))
+                ->model(CouponCode::class, 'name')
+                ->saving(function ($v) {
+                    dd($v);
+                });
         });
     }
 }

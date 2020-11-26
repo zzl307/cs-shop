@@ -67,7 +67,7 @@ class CouponCode extends Model
 
     public function CouponPublisher()
     {
-        return $this->belongsToMany(CouponPublishers::class, 'publisher_id');
+        return $this->belongsToMany(CouponPublisher::class, 'publisher_id');
     }
 
     public function CouponBusiness()

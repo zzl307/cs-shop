@@ -62,20 +62,16 @@ class CouponBusinessController extends AdminController
         return Form::make($builder, function (Form $form) {
             $form->display('id', 'ID');
 
+            $form->hidden('coupon_business_id')->value(1);
             $form->text('name')->rules('required');
 
-            $form->hasMany('codes', '优惠券', function (Form\NestedForm $form) {
+            $form->hasMany('CouponCode', '优惠券', function (Form\NestedForm $form) {
+                // $id = $form->model()->id;
                 $form->text('name', '名称')->rules('required', [
                     'required' => '名称不能为空'
                 ]);
-                $form->text('code', '优惠码')->rules(function ($form) {
-                    if ($id = $form->model()->id) {
-                        return 'nullable|unique:coupon_codes,code,' . $id . ',id';
-                    } else {
-                        return 'nullable|unique:coupon_codes';
-                    }
-                });
-                $form->radio('type', '类型')->options(CouponCode::$typeMap)->rules('required')->default(CouponCode::TYPE_FIXED);
+                $form->text('code')->creationRules(['required', "unique:coupon_codes,code"]);
+                $form->radio('type', '类型')->options(CouponCode::$typeMap)->rules( 'required')->default(CouponCode::TYPE_FIXED);
                 $form->text('value', '折扣')->rules(function ($form) {
                     if (request()->input('type') === CouponCode::TYPE_PERCENT) {
                         // 如果选择了百分比折扣类型，那么折扣范围只能是 1 ~ 99
@@ -90,16 +86,6 @@ class CouponBusinessController extends AdminController
                 $form->datetime('not_before', '开始时间');
                 $form->datetime('not_after', '结束时间');
                 $form->radio('enabled', '启用')->options(['1' => '是', '0' => '否'])->default('1');
-
-                $form->saving(function (Form $form) {
-                    if (!$form->code) {
-                        $form->code = CouponCode::findAvailableCode();
-                    }
-                });
-
-                $form->footer(function ($footer) {
-                    $footer->disableViewCheck();
-                });
             });
         });
     }
