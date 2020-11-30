@@ -16,6 +16,6 @@ class CouponPublisher extends Model
 
         $relatedModel = CouponCode::class; // 关联模型类名
 
-        return $this->belongsToMany($relatedModel, $pivotTable, 'code_id', 'publisher_id');
+        return $this->belongsToMany($relatedModel, $pivotTable, 'publisher_id', 'code_id');
     }
 }

@@ -27,8 +27,6 @@ class CreateCouponCodesTable extends Migration
             $table->boolean('enabled')->comment('优惠券生效状态');
             $table->boolean('online')->default(0)->comment('线上线下使用');
             $table->boolean('global')->default(0)->comment('0: 商户使用, 1: 全局使用');
-            $table->integer('publisher_id')->unsigned()->index()->nullable();
-            $table->foreign('publisher_id')->references('id')->on('coupon_publishers');
             $table->integer('business_id')->unsigned()->index()->nullable();
             $table->foreign('business_id')->references('id')->on('coupon_businesses')->onDelete('cascade');
             $table->timestamps();

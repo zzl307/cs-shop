@@ -78,13 +78,12 @@ class CouponPublisherController extends AdminController
             $form->text('name', '名称')->required();
             $form->text('scenes_used', '使用场景');
 
-            $form->multipleSelectTable('codes')
+            $form->multipleSelectTable('codes', '选择优惠券')
+                ->title('选择优惠券')
+                ->dialogWidth('68%')
                 ->max(10)
                 ->from(CodeTable::make(['id' => $form->getKey()]))
-                ->model(CouponCode::class, 'name')
-                ->saving(function ($v) {
-                    dd($v);
-                });
+                ->model(CouponCode::class, 'id', 'name');
         });
     }
 }

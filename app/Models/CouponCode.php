@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CouponCode extends Model
 {
@@ -65,9 +66,13 @@ class CouponCode extends Model
         return $str.'减'.str_replace('.00', '', $this->value);
     }
 
-    public function CouponPublisher()
+    public function publishers(): BelongsToMany
     {
-        return $this->belongsToMany(CouponPublisher::class, 'publisher_id');
+        $pivotTable = 'coupon_code_publisher'; // 中间表
+
+        $relatedModel = CouponPublisher::class; // 关联模型类名
+
+        return $this->belongsToMany($relatedModel, $pivotTable, 'code_id', 'publisher_id');
     }
 
     public function CouponBusiness()
