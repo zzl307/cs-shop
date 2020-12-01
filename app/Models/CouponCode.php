@@ -38,6 +38,8 @@ class CouponCode extends Model
     // 指明这两个字段是日期类型
     protected $dates = ['not_before', 'not_after'];
 
+    protected $hidden = ['pivot'];
+
     public static function findAvailableCode($length = 16)
     {
         do {

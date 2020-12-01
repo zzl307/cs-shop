@@ -6,9 +6,9 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use App\Models\CouponCode;
-use Dcat\Admin\Form\Field;
 use App\Admin\Renderable\CodeTable;
 use App\Admin\Repositories\CouponPublisher;
+use App\Admin\Renderable\PublisherCodeTable;
 use Dcat\Admin\Http\Controllers\AdminController;
 
 class CouponPublisherController extends AdminController
@@ -20,19 +20,14 @@ class CouponPublisherController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new CouponPublisher(), function (Grid $grid) {
+        $builder = CouponPublisher::with('codes');
+
+        return Grid::make($builder, function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('coupon_publisher_id');
             $grid->column('name');
             $grid->column('scenes_used');
-            // $grid->codes()->display(function ($CouponCode) {
-
-            //     $res = array_map(function ($CouponCode) {
-            //             return "<span class='label label-success'>{$CouponCode['name']}</span>";
-            //         }, $CouponCode);
-
-            //     return join(' ', $res);
-            // });
+            $grid->优惠券->display('查看')->modal('优惠券', PublisherCodeTable::make());
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 

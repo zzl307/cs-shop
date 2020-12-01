@@ -5,13 +5,11 @@ namespace App\Admin\Renderable;
 use Dcat\Admin\Grid;
 use App\Models\CouponCode;
 use Dcat\Admin\Grid\LazyRenderable;
-use Dcat\Admin\Models\Administrator;
 
 class CodeTable extends LazyRenderable
 {
     public function grid(): Grid
     {
-        // 获取外部传递的参数
         $id = $this->id;
 
         return Grid::make(new CouponCode(), function (Grid $grid) {
@@ -30,10 +28,6 @@ class CodeTable extends LazyRenderable
                 $filter->equal('id');
             });
 
-            // 指定行选择器选中时显示的值的字段名称
-            // 指定行选择器选中时显示的值的字段名称
-            // 指定行选择器选中时显示的值的字段名称
-            // 如果表格数据中带有 “name”、“title”或“username”字段，则可以不用设置
             $grid->rowSelector()->titleColumn('name');
 
             $grid->quickSearch(['id', 'name', 'description']);
@@ -48,4 +42,3 @@ class CodeTable extends LazyRenderable
         });
     }
 }
-?>
