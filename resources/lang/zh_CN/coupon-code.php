@@ -13,6 +13,8 @@ return [
         'total' => '总量',
         'used' => '已用',
         'enabled' => '启用状态',
+        'online' => '线上线下使用',
+        'global' => '全局私有使用'
     ],
     'options' => [
     ],

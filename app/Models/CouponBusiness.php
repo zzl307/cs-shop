@@ -14,7 +14,7 @@ class CouponBusiness extends Model
         'coupon_business_id',
     ];
 
-    public function CouponCode()
+    public function codes()
     {
         return $this->hasMany(CouponCode::class, 'business_id');
     }

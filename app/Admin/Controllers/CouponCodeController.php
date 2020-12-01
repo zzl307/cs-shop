@@ -26,6 +26,21 @@ class CouponCodeController extends AdminController
                 return "{$this->used} / {$this->total}";
             });
             $grid->column('enabled')->bool();
+            $grid->column('online')->using([1 => '线上', 0 => '线下'])->dot(
+                [
+                    1 => 'success',
+                    0 => 'primary',
+                ],
+                'primary'
+            );
+            $grid->column('global')->using([1 => '全局', 0 => '私有'])->label(
+                [
+                    'default' => 'primary',
+                    1 => 'success',
+                    0 => 'primary',
+                ]
+            );
+
             $grid->column('created_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
@@ -64,10 +79,14 @@ class CouponCodeController extends AdminController
             $form->datetime('not_before', '开始时间');
             $form->datetime('not_after', '结束时间');
             $form->radio('enabled', '启用')->options(['1' => '是', '0' => '否'])->default('1');
+            $form->radio('online', '线上线下使用')->options(['1' => '线上', '0' => '线下'])->default('1');
+            $form->hidden('global')->value('1');
 
             $form->footer(function ($footer) {
                 $footer->disableViewCheck();
             });
+
+            $form->disableViewButton();
         });
     }
 }

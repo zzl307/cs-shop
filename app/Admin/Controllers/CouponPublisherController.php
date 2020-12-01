@@ -47,11 +47,14 @@ class CouponPublisherController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new CouponPublisher(), function (Show $show) {
+        $model = CouponPublisher::with('codes');
+
+        return Show::make($id, $model, function (Show $show) {
             $show->field('id');
             $show->field('coupon_publisher_id');
             $show->field('name');
             $show->field('scenes_used');
+            $show->codes()->pluck('name')->label();
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -78,7 +81,12 @@ class CouponPublisherController extends AdminController
                 ->dialogWidth('68%')
                 ->max(10)
                 ->from(CodeTable::make(['id' => $form->getKey()]))
-                ->model(CouponCode::class, 'id', 'name');
+                ->model(CouponCode::class, 'id', 'name')
+                ->customFormat(function ($v) {
+                    if (!$v) return [];
+
+                    return array_column($v, 'id');
+                });
         });
     }
 }

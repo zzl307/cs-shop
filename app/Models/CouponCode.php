@@ -31,6 +31,8 @@ class CouponCode extends Model
         'not_before',
         'not_after',
         'enabled',
+        'global',
+        'online'
     ];
     protected $casts = [
         'enabled' => 'boolean',
@@ -77,8 +79,8 @@ class CouponCode extends Model
         return $this->belongsToMany($relatedModel, $pivotTable, 'code_id', 'publisher_id');
     }
 
-    public function CouponBusiness()
+    public function businesses()
     {
-        return $this->belongsTo(CouponBusiness::class, 'business_id');
+        return $this->belongsTo(CouponBusiness::class);
     }
 }

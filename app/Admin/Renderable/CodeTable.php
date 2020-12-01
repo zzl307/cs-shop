@@ -12,7 +12,7 @@ class CodeTable extends LazyRenderable
     {
         $id = $this->id;
 
-        return Grid::make(new CouponCode(), function (Grid $grid) {
+        return Grid::make(CouponCode::where('global', 1), function (Grid $grid) {
             $grid->model()->orderBy('created_at', 'desc');
             $grid->column('id')->sortable();
             $grid->column('name');

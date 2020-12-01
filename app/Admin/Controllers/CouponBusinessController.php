@@ -4,9 +4,9 @@ namespace App\Admin\Controllers;
 
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
-use Dcat\Admin\Show;
 use App\Models\CouponCode;
 use App\Models\CouponBusiness;
+use App\Admin\Renderable\BusinessCodeTable;
 use Dcat\Admin\Http\Controllers\AdminController;
 
 class CouponBusinessController extends AdminController
@@ -22,6 +22,7 @@ class CouponBusinessController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('coupon_business_id');
             $grid->column('name');
+            $grid->优惠券->display('查看')->modal('优惠券', BusinessCodeTable::make());
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -29,24 +30,8 @@ class CouponBusinessController extends AdminController
                 $filter->equal('id');
 
             });
-        });
-    }
 
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     *
-     * @return Show
-     */
-    protected function detail($id)
-    {
-        return Show::make($id, new CouponBusiness(), function (Show $show) {
-            $show->field('id');
-            $show->field('coupon_business_id');
-            $show->field('name');
-            $show->field('created_at');
-            $show->field('updated_at');
+            $grid->disableViewButton();
         });
     }
 
@@ -57,7 +42,7 @@ class CouponBusinessController extends AdminController
      */
     protected function form()
     {
-        $builder = CouponBusiness::with('CouponCode');
+        $builder = CouponBusiness::with('codes');
 
         return Form::make($builder, function (Form $form) {
             $form->display('id', 'ID');
@@ -65,8 +50,7 @@ class CouponBusinessController extends AdminController
             $form->hidden('coupon_business_id')->value(1);
             $form->text('name')->rules('required');
 
-            $form->hasMany('CouponCode', '优惠券', function (Form\NestedForm $form) {
-                // $id = $form->model()->id;
+            $form->hasMany('codes', '优惠券', function (Form\NestedForm $form) {
                 $form->text('name', '名称')->rules('required', [
                     'required' => '名称不能为空'
                 ]);
@@ -86,7 +70,11 @@ class CouponBusinessController extends AdminController
                 $form->datetime('not_before', '开始时间');
                 $form->datetime('not_after', '结束时间');
                 $form->radio('enabled', '启用')->options(['1' => '是', '0' => '否'])->default('1');
+                $form->radio('online', '线上线下使用')->options(['1' => '线上', '0' => '线下'])->default('1');
+                $form->hidden('global')->value('0');
             });
+
+            $form->disableViewButton();
         });
     }
 }

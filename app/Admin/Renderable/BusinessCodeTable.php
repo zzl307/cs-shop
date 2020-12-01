@@ -4,10 +4,10 @@ namespace App\Admin\Renderable;
 
 use Dcat\Admin\Admin;
 use Dcat\Admin\Widgets\Table;
-use App\Models\CouponPublisher;
+use App\Models\CouponBusiness;
 use Dcat\Admin\Support\LazyRenderable;
 
-class PublisherCodeTable extends LazyRenderable
+class BusinessCodeTable extends LazyRenderable
 {
     public function render()
     {
@@ -15,9 +15,9 @@ class PublisherCodeTable extends LazyRenderable
 
         $id = $this->key;
 
-        $couponPublisher = CouponPublisher::find($id);
+        $couponBusiness = CouponBusiness::find($id);
 
-        $data = $couponPublisher->codes()->get()->toArray();
+        $data = $couponBusiness->codes()->get()->toArray();
 
         $couponPublisherData = [];
 
