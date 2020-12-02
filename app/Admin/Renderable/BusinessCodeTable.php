@@ -24,7 +24,7 @@ class BusinessCodeTable extends LazyRenderable
         foreach ($data as $key => $vo) {
             $couponPublisherData[$key]['name'] = $vo['name'];
             $couponPublisherData[$key]['code'] = $vo['code'];
-            $couponPublisherData[$key]['description'] = $vo['description'];
+            $couponPublisherData[$key]['description'] = "<span class='label' style='background:#586cb1'>" . $vo['description'] . "</span>";
             $couponPublisherData[$key]['usage'] = $vo['used'] . '/' . $vo['total'];
         }
 

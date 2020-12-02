@@ -19,6 +19,4 @@ Route::group([
     $router->resource('coupon_businesses', 'CouponBusinessController');
     // 全局优惠券
     $router->resource('coupon_publishers', 'CouponPublisherController');
-
-    $router->resource('painters', 'DemoPainterController');
 });
